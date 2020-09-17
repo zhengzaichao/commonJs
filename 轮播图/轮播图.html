@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style type="text/css"></style>
+</head>
+
+<body>
+    <img src="img/0.jpg" id="img" width="600px" height="400px" />
+    <script type="text/javascript">
+        //设置定时器
+        window.setInterval("changeImage()", 2000);
+        var count = 1;    //在调用函数的时候0.jpg已经显示，如果num=0，那么在执行下面函数时，0.jpg会再次显示2秒
+        //设置寻找图片的函数
+        function changeImage() {
+            var img = document.getElementById("img");//img对象就相当于img标签
+            if (count < 5) {
+                img.src = "img/" + count + ".jpg";
+                count++;
+            } else {
+                count = 0;
+                changeImage();
+            }
+        }
+    </script>
+</body>
+</html>

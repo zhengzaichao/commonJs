@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Eject-alert</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="css/Eject.css" rel="stylesheet">
+<script src="https://www.jq22.com/jquery/jquery-1.9.1.js"></script>
+<script src="js/index.js"></script>
+<style>
+	button{margin: 20px}
+	.sl{
+		padding:0 10px;
+	}
+</style>
+</head>
+<body>
+	<button id="Ealt">alert弹窗</button>
+	<button id="Econfirm">confirm弹窗</button>
+	<button id="Etoast">tosat提示</button>
+	<div class="sl">
+		<h4>1、alert弹窗调用示例：</h4>
+		Ealt.Ealert({<br/>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title:'alert提示文案',<br/>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message:'这是alert弹窗，感觉还是很不错的'<br/>
+    	})<br/>
+	</div>
+	<div class="sl">
+		<h4>2、confirm弹窗调用示例：</h4>
+		Ealt.Econfirm({<br/>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title:'confirm弹窗文案',<br/>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message:'这是confirm弹窗,你确定删除吗?',<br/>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;define:function(){<br/>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert('您点击了确定')<br/>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br/>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cancel:function(){<br/>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert('您点击了取消')<br/>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+    	})
+	</div>
+	<div class="sl">
+		<h4>3、toast弱提示调用示例：</h4>
+		Ealt.Etoast('这是toast弱提示，您觉得怎么样！',3)//默认三秒
+	</div>
+    <script>
+    	var Ealt = new Eject()
+    	$('#Ealt').bind('click',function(){
+    		Ealt.Ealert({
+	    		title:'alert提示文案',
+	    		message:'这是alert弹窗，感觉还是很不错的'
+	    	})
+    	})
+    	$('#Econfirm').bind('click',function(){
+    		Ealt.Econfirm({
+	    		title:'confirm弹窗文案',
+	    		message:'这是confirm弹窗,你确定删除吗?',
+	    		define:function(){
+	    			alert('您点击了确定')
+	    		},
+	    		cancel:function(){
+	    			alert('您点击了取消')
+	    		}
+	    	})
+    	})
+    	$('#Etoast').bind('click',function(){
+    		Ealt.Etoast('这是toast弱提示，您觉得怎么样！',3)   //默认三秒
+    	})
+    </script>
+</body>
+</html>

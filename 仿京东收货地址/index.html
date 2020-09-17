@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>仿京东三级联动省市移动端地址</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<style type="text/css">
+		*{margin: 0;padding: 0;list-style: none;}
+		body{
+			    background-color: #F5F5F5;
+		}
+		#container{
+			max-width: 7.5rem;
+			margin: 0 auto;
+			background-color: #fff;
+			height: 100vh;
+			overflow: auto;
+			-webkit-overflow-scrolling: touch;
+		}
+		.content{
+		    display: flex;
+		    position: relative;
+		    padding-left: 0.24rem;
+		    padding-top: 2rem;
+		    font-size: .28rem;
+		}
+		.left{
+		    color: #333;  
+		    line-height: 1rem; 
+		}
+		.right {
+		    flex: 1;
+		    height: 1rem;
+		    padding-right: 0.24rem;
+		    display: flex;
+		    align-items: center;
+		    justify-content: space-between;
+		}
+		.input{
+			display: block;
+		    height: 100%;
+		    border: none;
+		    font-size: 0.3rem;
+		    background: transparent;
+		    color: #555;
+		    outline: none;
+		    color:transparent;
+			text-shadow:0 0 0 #333;
+			flex: 1;
+		}
+		.next-icon{
+			color: #888;
+		}
+		.input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+		    color: #888;
+		}
+		.input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+		   color:    #888;
+		}
+		.input::-moz-placeholder { /* Mozilla Firefox 19+ */
+		   color:    #888;
+		}
+		.input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+		   color:    #888;
+		}
+		#mymodal{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
+			background-color: rgba(0, 0, 0, .6);
+			display: none;
+		}
+		.modal-main{
+			position: absolute;
+			bottom: -900px;
+			left: 0;
+			height: 75%;
+			width: 100%;
+			background-color: #fff;
+			font-size: .22rem;
+		}
+		.address-title{
+			font-size: .24rem;
+			font-weight: 700;
+			text-align: center;
+			line-height: .5rem;
+			height: .5rem;
+		}
+		.close{
+			position: absolute;
+			padding: .1rem;
+			right: 0rem;
+			top: 0rem;
+			color: red;
+		}
+		.optionwrapper{
+			border-bottom: 1px solid #DDDDDD;
+			display: flex;
+			padding-left: .2rem;
+			height: .6rem;
+			box-sizing: border-box;
+		}
+		.option-menu{
+			padding:.1rem .1rem;
+			margin-right: .15rem;
+		}
+		.active-option{
+			border-bottom: 1px solid #FF2440;
+		}
+		.option-content{
+			position: absolute;
+			top: 1.1rem;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+		.option-group{
+			display: none;
+			overflow: auto;
+			height: 100%;
+		}
+		.option-list{
+			padding: .2rem .2rem;
+			display: flex;
+		}
+		.checked{
+			width: .15rem;
+			height: .15rem;
+			background-color: #FF304A;
+			display: inline-block;
+			margin-left: .2rem;
+			border-radius: 50%;
+			display: none;
+			margin-top: .1rem;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div class="content">
+			<div class="left">
+				所在地区：
+			</div>
+			<div class="right">
+				<input type="text" class="input" id="address" placeholder="请选择收货地址">
+				<span class="next-icon"> > </span>
+			</div>
+		</div>
+	</div>
+	<section id="mymodal">
+		<div class="modal-main">
+			<p class="address-title">收货地址</p>
+			<p class="close">x</p>
+			<ul class="optionwrapper">
+				<li class="option-menu option-menu-one active-option">请选择</li>
+				<li class="option-menu option-menu-two"></li>
+				<li class="option-menu option-menu-three"></li>
+			</ul>
+			<div class="option-content">
+				<ul class="option-group option-group-one" data-index="0" style="display: block">
+				</ul>
+				<ul class="option-group option-group-two" data-index="1">
+				</ul>
+				<ul class="option-group option-group-three"  data-index="2">
+				</ul>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>
+<script type="text/javascript" src="./rem.js"></script>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="./data.js"></script>
+<script type="text/javascript">
+
+
+
+	
+	
+
+	$(document).ready(function() {
+		var newData = [];//新数据
+		var citysArray = [];//城市
+		var areaArray = [];//地区
+		var chooseMenuStr = '请选择' //添加选择title
+
+		
+
+		function init(){
+			//模拟ajax
+			setTimeout(()=>{
+				newData = [...data];
+				// 初始化省份
+				var optionGroupOne = "";
+				$.each(newData,function(index, el) {
+					optionGroupOne += `<li class="option-list option-list-one">
+								<span>${newData[index]["n"]}</span>
+								<div class="checked">
+								</div>
+							</li>`
+				});
+				
+				$(".option-group-one").html(optionGroupOne)
+
+			},100)
+		}
+
+		init();
+		
+
+
+		$("#mymodal").on("click",".option-menu",function(){ //菜单激活
+			var i = $(this).index();
+			$(this).addClass('active-option').siblings().removeClass('active-option');
+			$(".option-group").eq(i).show().siblings().hide()
+		})
+
+		//1级 省份点击添加城市
+		$("#mymodal").on("click",".option-list-one",function(){
+			var parentIndex = $(this).parent().attr("data-index");
+			var provinceName = $(this).text().trim();
+			var provinceIndex = $(this).index();
+			$(this).find('.checked').show();
+			$(this).siblings().find('.checked').hide();
+			// console.log(newData[provinceIndex])
+			citysArray = newData[provinceIndex]["c"];
+			$(".option-menu").eq(parentIndex).text(provinceName)
+			var cityStr = "";
+			// console.log(citysArray)
+			$.each(citysArray,function(index, el) {
+				cityStr += `<li class="option-list option-list-two">
+						<span>${citysArray[index]["n"]}</span>
+						<div class="checked">
+						</div>
+					</li>`
+			});
+			// console.log(cityStr)
+			$(".option-group").hide();
+			$(".optionwrapper").find(".option-menu").removeClass('active-option')
+			$(".option-menu-two").html(chooseMenuStr).addClass('active-option')
+			$(".option-group-two").html(cityStr).show();
+			$(".option-group-three").html("");
+			$(".option-menu-three").html("")
+		})
+
+
+		//2级 城市点击添加城镇
+		$("#mymodal").on("click",".option-list-two",function(){
+			var parentIndex = $(this).parent().attr("data-index");
+			var cityName = $(this).text().trim();
+			var cityIndex = $(this).index();
+			$(this).find('.checked').show();
+			$(this).siblings().find('.checked').hide();
+			cityArray = citysArray[cityIndex]["a"];
+			$(".option-menu").eq(parentIndex).text(cityName)
+			var areaStr = "";
+			$.each(cityArray,function(index, el) {
+				areaStr += `<li class="option-list option-list-three">
+						<span>${cityArray[index]}</span>
+						<div class="checked">
+						</div>
+					</li>`
+			});
+			$(".option-group").hide();
+			$(".optionwrapper").find(".option-menu").removeClass('active-option')
+			$(".option-menu-three").html(chooseMenuStr).addClass('active-option')
+			$(".option-group-three").html(areaStr).show();
+		})
+		//3级 选择城镇
+		$("#mymodal").on("click",".option-list-three",function(){
+			var areaName = $(this).text().trim();
+			var parentIndex = $(this).parent().attr("data-index");
+			var menuOne = $(".option-menu").eq(0).text();
+			var menuTwo = $(".option-menu").eq(1).text();
+			var addressVal = menuOne +" "+ menuTwo +" "+ areaName;
+			$(this).find('.checked').show();
+			$(this).siblings().find('.checked').hide();
+			$(".option-menu").eq(parentIndex).text(areaName)
+			$(".modal-main").animate({"bottom":"-900px"}, 400);
+			setTimeout(()=>{
+				$("#mymodal").fadeOut()
+			},350)
+			$("#address").val(addressVal)
+		})
+		
+		$(".right").on("click",function(){
+			$("#mymodal").show();
+			$(".modal-main").animate({"bottom":"0"}, 400)
+		})
+
+
+		$(".close").on("click",function(){
+			$(".modal-main").animate({"bottom":"-900px"}, 400);
+			setTimeout(()=>{
+				$("#mymodal").fadeOut();
+			},350)
+		})
+
+		$("#mymodal").on("click",function(event){
+			var modalMain = $(".modal-main");
+			if (!modalMain.is(event.target)&& modalMain.has(event.target).length === 0) {
+				$(".modal-main").animate({"bottom":"-900px"}, 400);
+				setTimeout(()=>{
+					$("#mymodal").fadeOut();
+				},350)
+			}
+
+		})
+	
+	});
+	
+</script>

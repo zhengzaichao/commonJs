@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/jquery-1.10.1.min.js"></script>
+    <style>
+        body{
+            height:5000px;
+        }
+        #toTop{
+            position: fixed;
+            right:0;
+            bottom:0;
+        }
+    </style>
+</head>
+<body>
+    <div>123</div>
+    <div>
+        <img src="img/toTop.jpg" id="toTop">
+    </div>
+    <script>
+         $(function () {
+        // 获取要大于的高度
+        var headheight = window.innerHeight;
+        console.log(headheight)
+        window.onscroll=function () {
+            //获取浏览器滚轴滚动的距离
+            var scrollTop = $(window).scrollTop();
+            //当浏览器滚轴滚动的距离 大于 设定的高度时 显示“点击返回顶部”按钮，否则隐藏
+            if(scrollTop > headheight) {
+                $('#toTop').show()
+            } else {
+                $('#toTop').hide()
+            }
+        };
+       //点击返回顶部500ms的滑动效果
+        $('#toTop').on('click',function () {
+            $('html,body').animate({scrollTop:0},500);
+        })
+    })
+    </script>
+</body>
+</html>

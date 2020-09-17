@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./message.js"></script>
+    <style>
+        button {padding: 5px 10px;font-size: 16px; background: #ffc107; color: #fff;border: none}
+    </style>
+</head>
+<body>
+    <h2>alert方法</h2>
+    <button id="alert">点击查看</button>
+    <div style="padding:20px;background: #efefef">
+        默认调用：alert('请打开麦克风')
+    </div>
+    <br>
+    <button id="alert2">点击查看</button>
+    <div style="padding:20px;background: #efefef">
+        回调函数：alert('请打开麦克风').then(callback)
+    </div>
+    <br>
+    <button id="alert3">点击查看</button>
+    <div style="padding:20px;background: #efefef">
+        支持多参数：alert({
+            title: '我是标题',
+            content: '请打开麦克风',
+            doneText: '按钮文字'
+        }).then(callback)
+    </div>
+    <script>
+        document.getElementById('alert').onclick = function () {
+            alert('请打开麦克风')
+        }
+        document.getElementById('alert2').onclick = function () {
+            alert('请打开麦克风').then(() => {
+                console.log('已确认')
+            })
+        }
+        document.getElementById('alert3').onclick = function () {
+            alert({
+                title: '我是标题',
+                content: '请打开麦克风',
+                doneText: '按钮文字'
+            })
+        }
+    </script>
+    <br>
+    <br>
+    <h2>confirm方法</h2>
+    <button id="confirm">点击查看</button>
+    <div style="padding:20px;background: #efefef">
+        默认调用：confirm('请打开麦克风')
+    </div>
+    <br>
+    <button id="confirm2">点击查看</button>
+    <div style="padding:20px;background: #efefef">
+            confirm({
+                title: '我是标题',
+                content: '请打开麦克风',
+                doneText: '确认按钮文字',
+                cancalText: '取消按钮文字'
+            }).then(() => {
+                console.log('已确认')
+            }).catch(() => {
+                console.log('已取消')
+            })
+    </div>
+    <script>
+        document.getElementById('confirm').onclick = function () {
+            confirm('请打开麦克风').then(() => {
+                console.log('已确认')
+            }).catch(() => {
+                console.log('已取消')
+            })
+        }
+        document.getElementById('confirm2').onclick = function () {
+            confirm({
+                title: '我是标题',
+                content: '请打开麦克风',
+                doneText: '确认按钮文字',
+                cancelText: '取消按钮文字'
+            }).then(() => {
+                console.log('已确认')
+            }).catch(() => {
+                console.log('已取消')
+            })
+        }
+    </script>
+    <br>
+    <br>
+    <h2>toast方法</h2>
+    <button id="toast">点击查看</button>
+    <div style="padding:20px;background: #efefef">
+        默认调用：toast('请打开麦克风')
+    </div>
+    <br>
+    <button id="toast2">点击查看</button>
+    <div style="padding:20px;background: #efefef">
+        设置停留时间：toast({time: 5000, content: '停留5秒再消失'})
+    </div>
+    <script>
+        document.getElementById('toast').onclick = function () {
+            toast('请打开麦克风')
+        }
+        document.getElementById('toast2').onclick = function () {
+            toast({time: 5000, content: '停留5秒再消失'})
+        }
+    </script>
+</body>
+</html>
